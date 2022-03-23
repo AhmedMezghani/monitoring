@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="SiteDbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="MonitoringEmail">
+    <Key>
+      <PropertyRef Name="EmailId" />
+    </Key>
+    <Property Name="EmailId" Type="int" Nullable="false" />
+    <Property Name="Email" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="MonitoringSite">
+    <Key>
+      <PropertyRef Name="MonitoringSiteId" />
+    </Key>
+    <Property Name="MonitoringSiteId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Url" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Interval" Type="int" />
+    <Property Name="VerifyWord" Type="nvarchar(max)" />
+    <Property Name="Active" Type="bit" Nullable="false" />
+    <Property Name="LastRun" Type="datetime" />
+    <Property Name="SendEmail" Type="bit" Nullable="false" />
+    <Property Name="Username" Type="nvarchar(max)" />
+    <Property Name="Password" Type="nvarchar(max)" />
+    <Property Name="UserNameTextInputName" Type="nvarchar(max)" />
+    <Property Name="PasswordTextInputName" Type="nvarchar(max)" />
+    <Property Name="LoginSubmitButtonName" Type="nvarchar(max)" />
+    <Property Name="ReportSubmitButtonName" Type="nvarchar(max)" />
+    <Property Name="NbFail" Type="int" Nullable="false" />
+    <Property Name="IntervalSec" Type="int" />
+  </EntityType>
+  <EntityType Name="MonitoringSiteEmail">
+    <Key>
+      <PropertyRef Name="MonitoringSiteEmailId" />
+    </Key>
+    <Property Name="MonitoringSiteEmailId" Type="int" Nullable="false" />
+    <Property Name="EmailId" Type="int" Nullable="false" />
+    <Property Name="MonitoringSiteId" Type="int" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'SiteDb.dbo.MonitoringUser' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="MonitoringUser">
+    <Key>
+      <PropertyRef Name="UserName" />
+      <PropertyRef Name="Password" />
+    </Key>
+    <Property Name="UserName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Password" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityContainer Name="SiteDbModelStoreContainer">
+    <EntitySet Name="MonitoringEmail" EntityType="Self.MonitoringEmail" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MonitoringSite" EntityType="Self.MonitoringSite" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MonitoringSiteEmail" EntityType="Self.MonitoringSiteEmail" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MonitoringUser" EntityType="Self.MonitoringUser" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [MonitoringUser].[UserName] AS [UserName], 
+    [MonitoringUser].[Password] AS [Password]
+    FROM [dbo].[MonitoringUser] AS [MonitoringUser]</DefiningQuery>
+    </EntitySet>
+  </EntityContainer>
+</Schema>

@@ -1,0 +1,57 @@
+﻿@model Monitoring2.Models.MonitoringSite
+
+@{
+    ViewBag.Title = "Details";
+}
+<h1>aaaaaaaaaaaaa</h1>
+<div class="modal" id="detail" tabindex="-1" style="cursor: default; ">
+    <div class="modal-dialog modal-confirm">
+        <div class="modal-content ">
+            <div class="modal-body">
+                <table class="table">
+                    <tr>
+                        <td>site id :</td>
+                        <td>@Html.DisplayFor(model => model.MonitoringSiteId)</td>
+                    </tr>
+                    <tr>
+                        <td>Url :</td>
+                        <td>@Html.DisplayFor(model => model.Url)</td>
+                    </tr>
+                    <tr>
+                        <td>Interval :</td>
+                        <td>@Html.DisplayFor(model => model.Interval)</td>
+                    </tr>
+                    <tr>
+                        <td>Verify Word :</td>
+                        <td>@Html.DisplayFor(model => model.VerifyWord)</td>
+                    </tr>
+                    <tr>
+                        <td>Active :</td>
+                        <td>@Html.DisplayFor(model => model.Active)</td>
+                    </tr>
+                    <tr>
+                        <td>Last run :</td>
+                        <td>@Html.DisplayFor(model => model.LastRun)</td>
+                    </tr>
+
+                    <tr>
+                        <td>Username :</td>
+                        <td>@Html.DisplayFor(model => model.UserNameTextInputName)</td>
+                    </tr>
+                    <tr>
+                        <td>Password :</td>
+                        <td>@Html.DisplayFor(model => model.PasswordTextInputName)</td>
+                    </tr>
+                    <tr>
+                        <td>Number of Fail :</td>
+                        <td>@Html.DisplayFor(model => model.NbFail)</td>
+                    </tr>
+
+                </table>
+            </div>
+            <div class="modal-footer justify-content-center">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

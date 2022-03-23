@@ -1,0 +1,444 @@
+﻿@model IEnumerable<Monitoring2.Models.MonitoringSite>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+    
+
+<style>
+    table.dataTable thead .sorting_asc {
+        background-image: url(https://cdn.datatables.net/1.10.25/images/sort_asc.png) !important;
+    }
+
+    table.dataTable thead .sorting_desc {
+        background-image: url(https://cdn.datatables.net/1.10.25/images/sort_desc.png) !important;
+    }
+
+    table.dataTable thead .sorting {
+        background-image: url(https://cdn.datatables.net/1.10.25/images/sort_both.png);
+    }
+
+    table.dataTable thead .sorting, table.dataTable thead .sorting_asc, table.dataTable thead .sorting_desc, table.dataTable thead .sorting_asc_disabled, table.dataTable thead .sorting_desc_disabled {
+        cursor: pointer;
+        background-repeat: no-repeat;
+        background-position: center right;
+    }
+
+    #InputSearch {
+        background-position: 10px 10px;
+        background-repeat: no-repeat;
+        width: 100%;
+        font-size: 16px;
+        padding: 12px 20px 12px 40px;
+        border: 1px solid #ddd;
+        margin-bottom: 12px;
+    }
+
+    .form-popup {
+        display: none;
+        position: fixed;
+        bottom: 0;
+        right: 15px;
+        border: 3px solid #f1f1f1;
+        z-index: 9;
+    }
+
+    .modal-confirm {
+        color: #636363;
+        width: 400px;
+    }
+
+        .modal-confirm .modal-content {
+            padding: 20px;
+            border-radius: 5px;
+            border: none;
+            text-align: center;
+            font-size: 14px;
+        }
+
+    .modal-dialog .modal-header {
+        border-bottom: none;
+        position: relative;
+    }
+
+    .modal-dialog h4 {
+        text-align: center;
+        font-size: 26px;
+        margin: 30px 0 -10px;
+    }
+
+    .modal-confirm .close {
+        position: absolute;
+        top: -5px;
+        right: -2px;
+    }
+
+    .modal-confirm .modal-body {
+        color: #999;
+    }
+
+    .modal-confirm .modal-footer {
+        border: none;
+        text-align: center;
+        border-radius: 5px;
+        font-size: 13px;
+        padding: 10px 15px 25px;
+    }
+
+        .modal-confirm .modal-footer a {
+            color: #999;
+        }
+
+    .modal-confirm .icon-box {
+        width: 80px;
+        height: 80px;
+        margin: 0 auto;
+        border-radius: 50%;
+        z-index: 9;
+        text-align: center;
+        border: 3px solid #f15e5e;
+    }
+
+        .modal-confirm .icon-box i {
+            color: #f15e5e;
+            font-size: 46px;
+            display: inline-block;
+            margin-top: 13px;
+        }
+
+    .modal-confirm .btn, .modal-confirm .btn:active {
+        color: #fff;
+        border-radius: 4px;
+        background: #60c7c1;
+        text-decoration: none;
+        transition: all 0.4s;
+        line-height: normal;
+        min-width: 120px;
+        border: none;
+        min-height: 40px;
+        border-radius: 3px;
+        margin: 0 5px;
+    }
+
+    .modal-confirm .btn-secondary {
+        background: #c1c1c1;
+    }
+
+        .modal-confirm .btn-secondary:hover, .modal-confirm .btn-secondary:focus {
+            background: #a8a8a8;
+        }
+
+    .modal-confirm .btn-danger {
+        background: #f15e5e;
+    }
+
+        .modal-confirm .btn-danger:hover, .modal-confirm .btn-danger:focus {
+            background: #ee3535;
+        }
+
+    .trigger-btn {
+        display: inline-block;
+        margin: 100px auto;
+    }
+
+
+    a.AddButton {
+        display: inline-block;
+        padding: 0.5em 1.7em;
+        margin: 0 0.1em 0.1em 0;
+        border: 0.16em solid rgba(255, 255, 255, 0);
+        background-color: rgb(80, 10, 172);
+        border-radius: 2em;
+        box-sizing: border-box;
+        text-decoration: none;
+        font-family: "Roboto", sans-serif;
+        font-weight: 300;
+        color: #ffffff;
+        text-shadow: 0 0.04em 0.04em rgba(0, 0, 0, 0.35);
+        text-align: center;
+        transition: all 0.2s;
+    }
+
+    /* General button style */
+    .btn {
+        border: none;
+        font-family: 'Lato';
+        font-size: 10px;
+        color: inherit;
+        background: none;
+        cursor: pointer;
+        display: inline-block;
+        margin: 0px 0px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        font-weight: 700;
+        outline: none;
+        position: relative;
+        -webkit-transition: all 0.3s;
+        -moz-transition: all 0.3s;
+        transition: all 0.3s;
+    }
+
+        .btn:after {
+            content: '';
+            position: absolute;
+            z-index: -1;
+            -webkit-transition: all 0.3s;
+            -moz-transition: all 0.3s;
+            transition: all 0.3s;
+        }
+
+        /* Pseudo elements for icons */
+        .btn:before {
+            font-family: 'FontAwesome';
+            speak: none;
+            font-style: normal;
+            font-weight: normal;
+            font-variant: normal;
+            text-transform: none;
+            line-height: 1;
+            position: relative;
+            -webkit-font-smoothing: antialiased;
+        }
+
+
+
+    a.AddButton:hover {
+        border-color: rgb(255, 255, 255);
+    }
+
+    .container {
+        padding: 0px 0px 0px 0px;
+        margin-left: 70px;
+        margin-right: 70px;
+    }
+
+    #Sites {
+        font-family: Arial, Helvetica, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    th {
+        padding-top: 12px;
+        padding-bottom: 12px;
+        text-align: left;
+        background-color: #04AA6D;
+        color: white;
+    }
+    /*-----------------------*/
+
+
+</style>
+
+
+<h2>All Sites</h2>
+
+<input type="text" id="InputSearch" onkeyup="myFunction()" placeholder="Search for URL.." title="Type in a url">
+
+<!--dialog Add-->
+<p style="float: right;">
+    <a href="/Sites/Create" class="AddButton">Add site</a>
+
+    <a onClick="sendMail('@Url.Action("SendEmail","WebSites")','discord.com','[mezghaniahmed55@gmail.com]','False')">send mail</a>
+</p>
+<table class="table table-bordered table-striped" id="Sites">
+    <thead>
+        <tr>
+            <th>Url</th>
+            <th>Interval</th>
+            <th>Verify Word</th>
+            <th>Active</th>
+            <th>Last run</th>
+            <th>Username</th>
+            <th>Password</th>
+            <th>Number of fail</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td style="cursor: pointer;" data-target="#detail" data-toggle="modal" onclick="openModal('@item.MonitoringSiteId','@item.Url','@item.Interval','@item.VerifyWord','@item.Active','@item.LastRun','@item.UserNameTextInputName','@item.PasswordTextInputName','@item.LastRun','@item.NbFail')">
+                    @Html.DisplayFor(modelItem => item.Url)
+                </td>
+                <td>@Html.DisplayFor(modelItem => item.Interval)        </td>
+                <td>@Html.DisplayFor(modelItem => item.VerifyWord)      </td>
+                <td>@Html.DisplayFor(modelItem => item.Active)          </td>
+                <td>@Html.DisplayFor(modelItem => item.LastRun)         </td>
+                <td>@Html.DisplayFor(modelItem => item.Username)        </td>
+                <td>@Html.DisplayFor(modelItem => item.Password)        </td>
+                <td>@Html.DisplayFor(modelItem => item.NbFail)          </td>
+                <td>
+                    <button class="btn btn-primary" style="background-color: #fcba03;" onclick="window.location.href = '/sites/edit/' + @(item.MonitoringSiteId);">UPDATE</button>
+                    <!--Dialog Detail -->
+                    <div class="modal" id="detail" tabindex="-1" style="cursor: default; ">
+                        <div class="modal-dialog modal-confirm">
+                            <div class="modal-content ">
+                                <div class="modal-body">
+                                    <table class="table">
+                                        <tr>
+                                            <td>site id :</td>
+                                            <td id="id"></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Url :</td>
+                                            <td id="Url"></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Interval :</td>
+                                            <td id="Interval"></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Verify Word :</td>
+                                            <td id="VerifyWord"></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Active :</td>
+                                            <td id="Active"></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Last run :</td>
+                                            <td id="LastRun"></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Username :</td>
+                                            <td id="UserName"></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Password :</td>
+                                            <td id="Password"></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Number of Fail :</td>
+                                            <td id="NBFail"></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="modal-footer justify-content-center">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Dialog Delete -->
+                    <button class="btn btn-primary" data-target="#delete" data-toggle="modal" style="background-color:#fc0303;" onclick="ConfirmationDelete('@item.MonitoringSiteId')">DELETE</button>
+                    <div class="modal" id="delete" tabindex="-1" style="cursor: default; ">
+                        <div class="modal-dialog modal-confirm">
+                            <div class="modal-content">
+                                <div class="modal-header flex-column">
+                                    <div class="icon-box">
+                                        <i class="material-icons">&#10006;</i>
+                                    </div>
+                                    <h4 class="modal-title w-100">Are you sure?</h4>
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                </div>
+                                <div class="modal-body">
+                                    <p>Do you really want to delete these records? This process cannot be undone.</p>
+                                </div>
+                                <div class="modal-footer justify-content-center">
+                                    @using (Html.BeginForm())
+                                    {
+                                        @Html.AntiForgeryToken()
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                        <button id="" type="button" class="btn btn-danger" href="/Sites/Edit" onClick="DeleteSite('@Url.Action("Delete","Sites")')">Delete</button>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section scripts
+{
+    <script>
+        var idDelete = ""
+
+        sendMail = (Url, url, emails, error) => {
+            $.ajax({
+                type: 'GET',
+                url: Url,
+                data: { url: url, emails: emails, error: error },
+                contentType: 'application/json; charse t=utf-8',
+                success: function () {
+                    alert("success");
+                },
+                failure: function (response) {
+                    alert(response.responseText);
+                },
+                error: function () {
+                    alert("Error while inserting data");
+                }
+            });
+        }
+
+        DeleteSite = (url) => {
+            $.ajax({
+                type: 'GET',
+                url: url,
+                data: { id: idDelete },
+                contentType: 'application/json; charse t=utf-8',
+                success: function () {
+                    window.location.href = '/sites';
+
+                },
+                failure: function (response) {
+                    alert(response.responseText);
+                },
+                error: function () {
+                    alert("Error while inserting data");
+                }
+            });
+        }
+
+        function myFunction() {
+            var input, filter, table, tr, td, i, txtValue;
+            input = document.getElementById("InputSearch");
+            filter = input.value.toUpperCase();
+            table = document.getElementById("Sites");
+            tr = table.getElementsByTagName("tr");
+            for (i = 0; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td")[0];
+                if (td) {
+                    txtValue = td.textContent || td.innerText;
+                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                        tr[i].style.display = "";
+                    } else {
+                        tr[i].style.display = "none";
+                    }
+                }
+            }
+        }
+        var dataTable;
+        $(document).ready(function () {
+            $('#Sites').DataTable({
+                "dom": 'lrtip'
+            });
+
+        });
+        function openModal(id, url, interval, verif, active, lastrun, username, password, nbfail) {
+            $("#id").html(id);
+            $("#Url").html(url);
+            $("#Interval").html(interval);
+            $("#VerifyWord").html(verif);
+            if (active == 'onclick')
+                $("#Active").html('Yes');
+            else $("#Active").html('No');
+            $("#LastRun").html(lastrun);
+            $("#UserName").html(username);
+            $("#Password").html(password);
+            $("#NBFail").html(nbfail);
+        }
+
+        function ConfirmationDelete(id) {
+            idDelete = id;
+        }
+    </script>
+}

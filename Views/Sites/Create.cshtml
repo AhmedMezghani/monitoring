@@ -1,0 +1,172 @@
+﻿@model Monitoring2.Models.MonitoringSite
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2>Create</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+    <h4>MonitoringSite</h4>
+
+    <hr />
+    <div>
+        @Html.Label("Instance", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+
+            <input type="radio" onclick="myFunction()" id="HTTPI" name="url2" value="HTTPInstance" checked>
+            <label for="http">HTTP (Instance)</label>
+            <input type="radio" onclick="myFunction()" id="HTTPPP" name="url2" value="HTTPPagePublique">
+            <label for="http">HTTP (page publique)</label>
+            <input type="radio" onclick="myFunction()" id="SFTP" name="url2" value="SFTP">
+            <label for="sftp">SFTP</label>
+            <input type="radio" onclick="myFunction()" id="SMTP" name="url2" value="SMTP">
+            <label for="smtp">SMTP</label>
+        </div>
+    </div>
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+    <div class="form-group" id="url">
+        @Html.LabelFor(model => model.Url, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Url, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Url, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group" id="interval">
+        @Html.LabelFor(model => model.Interval, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Interval, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Interval, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group" id="verif">
+        @Html.LabelFor(model => model.VerifyWord, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.VerifyWord, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.VerifyWord, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group" id="active">
+        @Html.LabelFor(model => model.Active, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <div class="checkbox">
+                @Html.EditorFor(model => model.Active)
+                @Html.ValidationMessageFor(model => model.Active, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <div class="form-group" id="user" style="display: block;">
+        @Html.LabelFor(model => model.Username, "Username", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.UserNameTextInputName, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.UserNameTextInputName, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group" id="pass" style="display: block;">
+        @Html.LabelFor(model => model.Password, "Password", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group" id="userTIN" style="display: block;">
+        @Html.LabelFor(model => model.UserNameTextInputName, "UserName Text Input Name", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.UserNameTextInputName, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.UserNameTextInputName, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group" id="passTIN" style="display: block;">
+        @Html.LabelFor(model => model.PasswordTextInputName, "Password Text Input Name", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.PasswordTextInputName, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.PasswordTextInputName, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group" id="loginTIN" style="display:block;">
+        @Html.LabelFor(model => model.LoginSubmitButtonName, "Login Submit Button Name", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.LoginSubmitButtonName, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.LoginSubmitButtonName, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Create" class="btn btn-default" />
+        </div>
+    </div>
+</div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+<script>
+    function myFunction() {
+        const rbs = document.querySelectorAll('input[name="url2"]');
+        let selectedValue;
+        for (const rb of rbs) {
+            if (rb.checked) {
+                selectedValue = rb.value;
+                break;
+            }
+        }
+
+        var user = document.getElementById("user");
+        var pass = document.getElementById("pass");
+        var verif = document.getElementById("verif");
+        var userTIN = document.getElementById("userTIN");
+        var passTIN = document.getElementById("passTIN");
+        var loginTIN = document.getElementById("loginTIN");
+        
+        if (selectedValue === "HTTPInstance") {
+            user.style.display = "none";
+            pass.style.display = "none";
+            verif.style.display = "none";
+            userTIN.style.display = "block";
+            passTIN.style.display = "block";
+            loginTIN.style.display = "block";
+        }
+        if (selectedValue === "HTTPPagePublique") {
+            user.style.display = "none";
+            pass.style.display = "none";
+            verif.style.display = "block";
+            userTIN.style.display = "none";
+            passTIN.style.display = "none";
+            loginTIN.style.display = "none";
+        }
+        else if (selectedValue === "SFTP") {
+            user.style.display = "block";
+            pass.style.display = "block";
+            verif.style.display = "none";
+            userTIN.style.display = "none";
+            passTIN.style.display = "none";
+            loginTIN.style.display = "none";
+        }
+        else if (selectedValue === "SMTP") {
+            user.style.display = "none";
+            pass.style.display = "none";
+            verif.style.display = "none";
+            userTIN.style.display = "none";
+            passTIN.style.display = "none";
+            loginTIN.style.display = "none";
+        }
+    }
+</script>

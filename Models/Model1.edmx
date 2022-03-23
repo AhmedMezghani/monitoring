@@ -1,0 +1,193 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="SiteDbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="MonitoringEmail">
+          <Key>
+            <PropertyRef Name="EmailId" />
+          </Key>
+          <Property Name="EmailId" Type="int" Nullable="false" />
+          <Property Name="Email" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MonitoringSite">
+          <Key>
+            <PropertyRef Name="MonitoringSiteId" />
+          </Key>
+          <Property Name="MonitoringSiteId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Url" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Interval" Type="int" />
+          <Property Name="VerifyWord" Type="nvarchar(max)" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="LastRun" Type="datetime" />
+          <Property Name="SendEmail" Type="bit" Nullable="false" />
+          <Property Name="Username" Type="nvarchar(max)" />
+          <Property Name="Password" Type="nvarchar(max)" />
+          <Property Name="UserNameTextInputName" Type="nvarchar(max)" />
+          <Property Name="PasswordTextInputName" Type="nvarchar(max)" />
+          <Property Name="LoginSubmitButtonName" Type="nvarchar(max)" />
+          <Property Name="ReportSubmitButtonName" Type="nvarchar(max)" />
+          <Property Name="NbFail" Type="int" Nullable="false" />
+          <Property Name="IntervalSec" Type="int" />
+        </EntityType>
+        <EntityType Name="MonitoringSiteEmail">
+          <Key>
+            <PropertyRef Name="MonitoringSiteEmailId" />
+          </Key>
+          <Property Name="MonitoringSiteEmailId" Type="int" Nullable="false" />
+          <Property Name="EmailId" Type="int" Nullable="false" />
+          <Property Name="MonitoringSiteId" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'SiteDb.dbo.MonitoringUser' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="MonitoringUser">
+          <Key>
+            <PropertyRef Name="UserName" />
+            <PropertyRef Name="Password" />
+          </Key>
+          <Property Name="UserName" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Password" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="SiteDbModelStoreContainer">
+          <EntitySet Name="MonitoringEmail" EntityType="Self.MonitoringEmail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MonitoringSite" EntityType="Self.MonitoringSite" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MonitoringSiteEmail" EntityType="Self.MonitoringSiteEmail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MonitoringUser" EntityType="Self.MonitoringUser" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [MonitoringUser].[UserName] AS [UserName], 
+    [MonitoringUser].[Password] AS [Password]
+    FROM [dbo].[MonitoringUser] AS [MonitoringUser]</DefiningQuery>
+          </EntitySet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="SiteDbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="MonitoringEmail">
+          <Key>
+            <PropertyRef Name="EmailId" />
+          </Key>
+          <Property Name="EmailId" Type="Int32" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MonitoringSite">
+          <Key>
+            <PropertyRef Name="MonitoringSiteId" />
+          </Key>
+          <Property Name="MonitoringSiteId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Url" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Interval" Type="Int32" />
+          <Property Name="VerifyWord" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="LastRun" Type="DateTime" Precision="3" />
+          <Property Name="SendEmail" Type="Boolean" Nullable="false" />
+          <Property Name="Username" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="UserNameTextInputName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PasswordTextInputName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="LoginSubmitButtonName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ReportSubmitButtonName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="NbFail" Type="Int32" Nullable="false" />
+          <Property Name="IntervalSec" Type="Int32" />
+        </EntityType>
+        <EntityType Name="MonitoringSiteEmail">
+          <Key>
+            <PropertyRef Name="MonitoringSiteEmailId" />
+          </Key>
+          <Property Name="MonitoringSiteEmailId" Type="Int32" Nullable="false" />
+          <Property Name="EmailId" Type="Int32" Nullable="false" />
+          <Property Name="MonitoringSiteId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MonitoringUser">
+          <Key>
+            <PropertyRef Name="UserName" />
+            <PropertyRef Name="Password" />
+          </Key>
+          <Property Name="UserName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="SiteDbEntities2" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="MonitoringEmail" EntityType="Self.MonitoringEmail" />
+          <EntitySet Name="MonitoringSite" EntityType="Self.MonitoringSite" />
+          <EntitySet Name="MonitoringSiteEmail" EntityType="Self.MonitoringSiteEmail" />
+          <EntitySet Name="MonitoringUser" EntityType="Self.MonitoringUser" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="SiteDbModelStoreContainer" CdmEntityContainer="SiteDbEntities2">
+          <EntitySetMapping Name="MonitoringEmail">
+            <EntityTypeMapping TypeName="SiteDbModel.MonitoringEmail">
+              <MappingFragment StoreEntitySet="MonitoringEmail">
+                <ScalarProperty Name="EmailId" ColumnName="EmailId" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MonitoringSite">
+            <EntityTypeMapping TypeName="SiteDbModel.MonitoringSite">
+              <MappingFragment StoreEntitySet="MonitoringSite">
+                <ScalarProperty Name="MonitoringSiteId" ColumnName="MonitoringSiteId" />
+                <ScalarProperty Name="Url" ColumnName="Url" />
+                <ScalarProperty Name="Interval" ColumnName="Interval" />
+                <ScalarProperty Name="VerifyWord" ColumnName="VerifyWord" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="LastRun" ColumnName="LastRun" />
+                <ScalarProperty Name="SendEmail" ColumnName="SendEmail" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="UserNameTextInputName" ColumnName="UserNameTextInputName" />
+                <ScalarProperty Name="PasswordTextInputName" ColumnName="PasswordTextInputName" />
+                <ScalarProperty Name="LoginSubmitButtonName" ColumnName="LoginSubmitButtonName" />
+                <ScalarProperty Name="ReportSubmitButtonName" ColumnName="ReportSubmitButtonName" />
+                <ScalarProperty Name="NbFail" ColumnName="NbFail" />
+                <ScalarProperty Name="IntervalSec" ColumnName="IntervalSec" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MonitoringSiteEmail">
+            <EntityTypeMapping TypeName="SiteDbModel.MonitoringSiteEmail">
+              <MappingFragment StoreEntitySet="MonitoringSiteEmail">
+                <ScalarProperty Name="MonitoringSiteEmailId" ColumnName="MonitoringSiteEmailId" />
+                <ScalarProperty Name="EmailId" ColumnName="EmailId" />
+                <ScalarProperty Name="MonitoringSiteId" ColumnName="MonitoringSiteId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MonitoringUser">
+            <EntityTypeMapping TypeName="SiteDbModel.MonitoringUser">
+              <MappingFragment StoreEntitySet="MonitoringUser">
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

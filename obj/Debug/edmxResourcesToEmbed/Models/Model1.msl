@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="SiteDbModelStoreContainer" CdmEntityContainer="SiteDbEntities2">
+    <EntitySetMapping Name="MonitoringEmail">
+      <EntityTypeMapping TypeName="SiteDbModel.MonitoringEmail">
+        <MappingFragment StoreEntitySet="MonitoringEmail">
+          <ScalarProperty Name="EmailId" ColumnName="EmailId" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MonitoringSite">
+      <EntityTypeMapping TypeName="SiteDbModel.MonitoringSite">
+        <MappingFragment StoreEntitySet="MonitoringSite">
+          <ScalarProperty Name="MonitoringSiteId" ColumnName="MonitoringSiteId" />
+          <ScalarProperty Name="Url" ColumnName="Url" />
+          <ScalarProperty Name="Interval" ColumnName="Interval" />
+          <ScalarProperty Name="VerifyWord" ColumnName="VerifyWord" />
+          <ScalarProperty Name="Active" ColumnName="Active" />
+          <ScalarProperty Name="LastRun" ColumnName="LastRun" />
+          <ScalarProperty Name="SendEmail" ColumnName="SendEmail" />
+          <ScalarProperty Name="Username" ColumnName="Username" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="UserNameTextInputName" ColumnName="UserNameTextInputName" />
+          <ScalarProperty Name="PasswordTextInputName" ColumnName="PasswordTextInputName" />
+          <ScalarProperty Name="LoginSubmitButtonName" ColumnName="LoginSubmitButtonName" />
+          <ScalarProperty Name="ReportSubmitButtonName" ColumnName="ReportSubmitButtonName" />
+          <ScalarProperty Name="NbFail" ColumnName="NbFail" />
+          <ScalarProperty Name="IntervalSec" ColumnName="IntervalSec" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MonitoringSiteEmail">
+      <EntityTypeMapping TypeName="SiteDbModel.MonitoringSiteEmail">
+        <MappingFragment StoreEntitySet="MonitoringSiteEmail">
+          <ScalarProperty Name="MonitoringSiteEmailId" ColumnName="MonitoringSiteEmailId" />
+          <ScalarProperty Name="EmailId" ColumnName="EmailId" />
+          <ScalarProperty Name="MonitoringSiteId" ColumnName="MonitoringSiteId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MonitoringUser">
+      <EntityTypeMapping TypeName="SiteDbModel.MonitoringUser">
+        <MappingFragment StoreEntitySet="MonitoringUser">
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

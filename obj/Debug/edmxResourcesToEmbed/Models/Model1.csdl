@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="SiteDbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="MonitoringEmail">
+    <Key>
+      <PropertyRef Name="EmailId" />
+    </Key>
+    <Property Name="EmailId" Type="Int32" Nullable="false" />
+    <Property Name="Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+  </EntityType>
+  <EntityType Name="MonitoringSite">
+    <Key>
+      <PropertyRef Name="MonitoringSiteId" />
+    </Key>
+    <Property Name="MonitoringSiteId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Url" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Interval" Type="Int32" />
+    <Property Name="VerifyWord" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Active" Type="Boolean" Nullable="false" />
+    <Property Name="LastRun" Type="DateTime" Precision="3" />
+    <Property Name="SendEmail" Type="Boolean" Nullable="false" />
+    <Property Name="Username" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="UserNameTextInputName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="PasswordTextInputName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="LoginSubmitButtonName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="ReportSubmitButtonName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="NbFail" Type="Int32" Nullable="false" />
+    <Property Name="IntervalSec" Type="Int32" />
+  </EntityType>
+  <EntityType Name="MonitoringSiteEmail">
+    <Key>
+      <PropertyRef Name="MonitoringSiteEmailId" />
+    </Key>
+    <Property Name="MonitoringSiteEmailId" Type="Int32" Nullable="false" />
+    <Property Name="EmailId" Type="Int32" Nullable="false" />
+    <Property Name="MonitoringSiteId" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="MonitoringUser">
+    <Key>
+      <PropertyRef Name="UserName" />
+      <PropertyRef Name="Password" />
+    </Key>
+    <Property Name="UserName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+  </EntityType>
+  <EntityContainer Name="SiteDbEntities2" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="MonitoringEmail" EntityType="Self.MonitoringEmail" />
+    <EntitySet Name="MonitoringSite" EntityType="Self.MonitoringSite" />
+    <EntitySet Name="MonitoringSiteEmail" EntityType="Self.MonitoringSiteEmail" />
+    <EntitySet Name="MonitoringUser" EntityType="Self.MonitoringUser" />
+  </EntityContainer>
+</Schema>
